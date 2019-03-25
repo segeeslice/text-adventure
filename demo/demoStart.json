@@ -1,0 +1,20 @@
+{
+  "mainText": "The text to be displayed in the main area",
+  "button1": {
+    "text": "The text to be displayed in the first (top left) button",
+    "dest": "The file name we should travel to when this button is clicked"
+  },
+  "button2": {
+    "text": "The text to be displayed in second (top right) button",
+    "dest": "The file name we should travel to when this button is clicked"
+  },
+  "button3": {
+    "text": "The text to be displayed in third (bottom left) button",
+    "dest": "The file name we should travel to when this button is clicked"
+  },
+  "button4": {
+    "text": "The text to be displayed in fourth (bottom right) button",
+    "dest": "The file name we should travel to when this button is clicked"
+  },
+  "backEnable": true
+}
