@@ -1,3 +1,5 @@
+final JSONObject jsonObj;
+
 final String fontFile = "IBM_VGA8.ttf";
 final int fontSize = 16;
 final int padding = 16;
@@ -17,6 +19,12 @@ void setup () {
   backImg = loadImage("back.png");
   initButtons();
   initText();
+  
+  try {
+    jsonObj = loadJSONObject("demoStart.json");
+  } catch (Exception e) {
+    println("Error:", e); 
+  }
 }
 
 void draw () {
