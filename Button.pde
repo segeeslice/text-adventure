@@ -65,6 +65,14 @@ class Button {
   public int getW () { return w; }
   public int getH () { return h; }
   public char getK () { return k; }
+  
+  public void display () {
+    rect(x, y, w, h);
+  }
+  
+  public void display (int curve) {
+    rect(x, y, w, h, curve);
+  }
 };
 
 final Button button1 = new Button(buttonWidth, buttonHeight, '1');
@@ -113,14 +121,11 @@ void optionButtons() {
   fill(40,40,40);
   rectMode(CORNER);
   
-  // Base selections
-  rect(button1.getX(), button1.getY(), button1.getW(), button1.getH());
-  rect(button2.getX(), button2.getY(), button2.getW(), button2.getH());
-  rect(button3.getX(), button3.getY(), button3.getW(), button3.getH());
-  rect(button4.getX(), button4.getY(), button4.getW(), button4.getH());
-  
-  // Back button
-  rect(buttonB.getX(), buttonB.getY(), buttonB.getW(), buttonB.getH(), 10);
+  button1.display();
+  button2.display();
+  button3.display();
+  button4.display();
+  buttonB.display(10);
   
   imageMode(CENTER);
   image(backImg, backCenterX, backCenterY, buttonB.getW()-padding, buttonB.getH()-padding);
