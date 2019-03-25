@@ -2,4 +2,7 @@
 - Gradient center to replicate old monitor
 
 # Technical
-- Everything
+- File parsing
+
+# Documentation
+- General format example in README
