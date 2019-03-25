@@ -110,11 +110,11 @@ void initButtons () {
   buttonB.setY(backY);
   
   // Init button vector
+  buttonVect.add(buttonB);
   buttonVect.add(button1);
   buttonVect.add(button2);
   buttonVect.add(button3);
   buttonVect.add(button4);
-  buttonVect.add(buttonB);
 }
 
 void optionButtons() {
