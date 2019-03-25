@@ -15,9 +15,16 @@ void setup () {
   stroke(0,255,51);
   
   backImg = loadImage("back.png");
+  initButtons();
+  initText();
 }
 
 void draw () {
   mainText();
   optionButtons();
+}
+
+void mousePressed () {
+  char val = mouseOverButton(mouseX, mouseY);
+  println("Value: ", val);
 }
