@@ -20,6 +20,8 @@ final int backButtonWidth = 48;
 final int backButtonX = buttonWidth + 2*padding;
 final int backButtonY = button3Y - (Integer)(padding/2);
 
+PImage backImg; // Must be set in setup()
+
 void optionButtons() {
   fill(40,40,40);
   rectMode(CORNER);
@@ -32,5 +34,8 @@ void optionButtons() {
   
   // Back button
   rectMode(CENTER);
-  rect(backButtonX, backButtonY, backButtonWidth, backButtonHeight, 8);
+  rect(backButtonX, backButtonY, backButtonWidth, backButtonHeight, 10);
+  
+  imageMode(CENTER);
+  image(backImg, backButtonX, backButtonY, backButtonWidth-padding, backButtonHeight-padding);
 }

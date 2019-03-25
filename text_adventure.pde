@@ -13,6 +13,8 @@ void setup () {
   noSmooth();
   strokeWeight(2);
   stroke(0,255,51);
+  
+  backImg = loadImage("back.png");
 }
 
 void draw () {
