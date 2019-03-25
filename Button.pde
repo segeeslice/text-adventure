@@ -1,3 +1,11 @@
+/*
+Buttons are numbered in normal reading order as they would appear on the screen.
+The back button is located in the middle of them as such:
+
+1    2
+ back
+3    4
+*/
 
 // CORNER mode, main buttons
 final int buttonHeight = 56;
@@ -36,6 +44,6 @@ void optionButtons() {
   rectMode(CENTER);
   rect(backButtonX, backButtonY, backButtonWidth, backButtonHeight, 10);
   
-  imageMode(CENTER);
+  imageMode(CENTER);,
   image(backImg, backButtonX, backButtonY, backButtonWidth-padding, backButtonHeight-padding);
 }
