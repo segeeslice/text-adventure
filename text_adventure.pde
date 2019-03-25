@@ -1,4 +1,4 @@
-final JSONObject jsonObj;
+JSONObject jsonObj = new JSONObject();
 
 final String fontFile = "IBM_VGA8.ttf";
 final int fontSize = 16;
@@ -28,7 +28,7 @@ void setup () {
 }
 
 void draw () {
-  mainText();
+  mainText(getMainText(jsonObj));
   optionButtons();
 }
 
