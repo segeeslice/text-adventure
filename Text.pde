@@ -5,10 +5,15 @@
 */
 
 // CORNERS mode, main text portion
-final int textX1 = padding+5; // Additional 5 to roughly center
-final int textY1 = padding;
-final int textX2 = 800-padding;
-final int textY2 = button1Y - padding;
+int textX1, textY1, textX2, textY2;
+
+// Must be done in this way to utilize button locations
+void initText () {
+  textX1 = padding+5; // Additional 5 to roughly center
+  textY1 = padding;
+  textX2 = 800-padding;
+  textY2 = button1.getY() - padding;
+}
 
 void mainText() {
   fill(0,255,51);
