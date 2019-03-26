@@ -28,9 +28,11 @@ void setup () {
 
 void draw () {
   String mainText = getMainText(jsonObj);
-  String buttonText[] = getButtonText(jsonObj);
   mainTextDisplay(mainText);
-  buttonsDisplay(buttonText);
+
+  String buttonText[] = getButtonText(jsonObj);
+  updateButtonText(buttonText);
+  buttonsDisplay();
 }
 
 void mousePressed () {
