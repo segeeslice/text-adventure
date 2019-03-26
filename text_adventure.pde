@@ -28,7 +28,8 @@ void setup () {
 
 void draw () {
   String mainText = getMainText(jsonObj);
-  mainTextDisplay(mainText);
+  updateMainText(mainText);
+  mainTextDisplay();
 
   String buttonText[] = getButtonText(jsonObj);
   updateButtonText(buttonText);
