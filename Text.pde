@@ -23,6 +23,10 @@ void updateMainText (String mainText) {
   MAIN_TEXT = mainText;
 }
 
+Boolean textChanged (String mainText) {
+  return MAIN_TEXT != mainText;
+}
+
 void mainTextDisplay() {
   fill(0,255,51);
   rectMode(CORNERS);

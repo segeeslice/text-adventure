@@ -27,12 +27,18 @@ void setup () {
 }
 
 void draw () {
+  // Update the view if we've loaded a new jsonObj
+  // Base this on the assumption that main text will not be the same
+  // in two consecutive files
   String mainText = getMainText(jsonObj);
-  updateMainText(mainText);
-  mainTextDisplay();
+  if (textChanged(mainText)) {
+    updateMainText(mainText);
 
-  String buttonText[] = getButtonText(jsonObj);
-  updateButtonText(buttonText);
+    String buttonText[] = getButtonText(jsonObj);
+    updateButtonText(buttonText);
+  }
+  
+  mainTextDisplay();
   buttonsDisplay();
 }
 
