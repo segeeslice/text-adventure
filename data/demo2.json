@@ -1,0 +1,20 @@
+{
+  "mainText": "You made it to the second area!",
+  "button1": {
+    "text": "Which button goes somewhere?",
+    "dest": ""
+  },
+  "button2": {
+    "text": "Is it this one?",
+    "dest": "demo3.json"
+  },
+  "button3": {
+    "text": "Remember you can use the back button, too!",
+    "dest": ""
+  },
+  "button4": {
+    "text": "This one might go somewhere... ;)",
+    "dest": "demo4.json"
+  },
+  "backEnable": true
+}

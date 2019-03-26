@@ -9,10 +9,12 @@ With a format like this, the primary key is wide-scale organization, which I hop
 Stay tuned. :)
 
 ___
-## Running an adventure
-Simply click on the
+## Running an adventure (TBD)
+Simply click on the loading icon and find the starting file for your adventure. If they made the format correctly, the adventure should run from there.
+
+Use the main buttons to make selections, and use the back button to go back to a previous location (if it's enabled).
 ___
-## Adventure Creation
+## Adventure Creation (TBD)
 
 The program utilizes [JSON](https://www.w3schools.com/whatis/whatis_json.asp) files in order to run an adventure. It's recommended that you remotely understand how this works, but it is not required since this format is designed to be human-readable.
 

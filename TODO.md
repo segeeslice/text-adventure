@@ -6,3 +6,4 @@
 
 # Documentation
 - General format example in README
+- Character limits / recommendations

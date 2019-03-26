@@ -1,0 +1,20 @@
+{
+  "mainText": "This is the mainText area of the page!",
+  "button1": {
+    "text": "Go to the second area",
+    "dest": "demo2.json"
+  },
+  "button2": {
+    "text": "Go to the third area",
+    "dest": "demo3.json"
+  },
+  "button3": {
+    "text": "Go to the fourth area",
+    "dest": "demo4.json"
+  },
+  "button4": {
+    "text": "This one does nothing (I got lazy)",
+    "dest": ""
+  },
+  "backEnable": false
+}

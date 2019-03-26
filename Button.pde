@@ -35,18 +35,19 @@ class Button {
   // Button identifier
   private char k;
   
-  // Text to be displayed
-  String text;
+  // Text to be displayed and destination when clicked
+  private String textVal;
+  private String dest;
   
   public Button () {
     x = y = w = h = 0;
     k = ' ';
-    text = "";
+    textVal = "";
   }
   
   public Button (int w_in, int h_in, char k_in) {
     x = y = 0;
-    text = "";
+    textVal = "";
     
     w = w_in;
     h = h_in;
@@ -60,17 +61,32 @@ class Button {
   public void setH (int h_in)  { h = h_in; }
   public void setK (char k_in) { k = k_in; }
   
+  public void setText (String text_in) { textVal = text_in; }
+  public void setDest (String dest_in) { dest = dest_in; }
+  
   public int getX () { return x; }
   public int getY () { return y; }
   public int getW () { return w; }
   public int getH () { return h; }
   public char getK () { return k; }
   
+  public String getDest () { return dest; }
+  
   public void display () {
+    fill(40,40,40);
+    rectMode(CORNER);   
     rect(x, y, w, h);
+    
+    textAlign(LEFT, TOP);
+    rectMode(CORNERS);
+    fill(0,255,51);
+    text(textVal, x + 8, y + 8, x + w - 8, y + h - 8);
   }
   
   public void display (int curve) {
+    fill(40,40,40);
+    rectMode(CORNER);
+    
     rect(x, y, w, h, curve);
   }
 };
@@ -117,10 +133,8 @@ void initButtons () {
   buttonVect.add(button4);
 }
 
-void optionButtons() {
-  fill(40,40,40);
-  rectMode(CORNER);
-  
+// Takes an array of four strings correlating to the four main buttons in order
+void buttonsDisplay() {
   button1.display();
   button2.display();
   button3.display();
@@ -129,6 +143,34 @@ void optionButtons() {
   
   imageMode(CENTER);
   image(backImg, backCenterX, backCenterY, buttonB.getW()-padding, buttonB.getH()-padding);
+}
+
+
+// Takes an array of four strings correlating to the four main buttons in order and updates their strings
+void updateButtonText(String[] text) {
+  if (text.length < 4) {
+    println("Could not update button text: size error");
+    return;
+  }
+  
+  // TODO: use buttonVect?
+  button1.setText(text[0]);
+  button2.setText(text[1]);
+  button3.setText(text[2]);
+  button4.setText(text[3]);
+}
+
+// Takes an array of four strings correlating to the four main buttons in order and updates their destinations
+void updateButtonDest(String[] dest) {
+  if (dest.length < 4) {
+    println("Could not update button dest: size error");
+    return;
+  }
+  
+  button1.setDest(dest[0]);
+  button2.setDest(dest[1]);
+  button3.setDest(dest[2]);
+  button4.setDest(dest[3]);
 }
 
 /*
@@ -145,4 +187,23 @@ char mouseOverButton(int x, int y) {
   }
 
   return ' ';
+}
+
+// Return destination based on passed button key
+// Uses same key conventions as described in mouseOverButton
+String getButtonDest(char keyVal) {  
+  switch (keyVal) {
+    case '1':
+      return button1.getDest();
+    case '2':
+      return button2.getDest();
+    case '3':
+      return button3.getDest();
+    case '4':
+      return button4.getDest();
+    case 'B':
+      // Something here
+    default:
+      return "";
+  }
 }
