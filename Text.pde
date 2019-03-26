@@ -15,8 +15,9 @@ void initText () {
   textY2 = button1.getY() - padding;
 }
 
-void mainText(String textContents) {
+void mainTextDisplay(String mainText) {
   fill(0,255,51);
   rectMode(CORNERS);
-  text(textContents, textX1, textY1, textX2, textY2);
+  textAlign(LEFT, TOP);
+  text(mainText, textX1, textY1, textX2, textY2);
 }

@@ -36,17 +36,17 @@ class Button {
   private char k;
   
   // Text to be displayed
-  String text;
+  String textVal;
   
   public Button () {
     x = y = w = h = 0;
     k = ' ';
-    text = "";
+    textVal = "";
   }
   
   public Button (int w_in, int h_in, char k_in) {
     x = y = 0;
-    text = "";
+    textVal = "";
     
     w = w_in;
     h = h_in;
@@ -66,11 +66,21 @@ class Button {
   public int getH () { return h; }
   public char getK () { return k; }
   
-  public void display () {
+  public void display (String text_in) {
+    fill(40,40,40);
+    rectMode(CORNER);   
     rect(x, y, w, h);
+    
+    textAlign(LEFT, TOP);
+    rectMode(CORNERS);
+    fill(0,255,51);
+    text(text_in, x + 8, y + 8, x + w - 8, y + h - 8);
   }
   
   public void display (int curve) {
+    fill(40,40,40);
+    rectMode(CORNER);
+    
     rect(x, y, w, h, curve);
   }
 };
@@ -117,14 +127,17 @@ void initButtons () {
   buttonVect.add(button4);
 }
 
-void optionButtons() {
-  fill(40,40,40);
-  rectMode(CORNER);
+// Takes an array of four strings correlating to the four main buttons in order
+void buttonsDisplay(String[] text) {
+  if (text.length < 4) {
+    println("Size error");
+    return;
+  }
   
-  button1.display();
-  button2.display();
-  button3.display();
-  button4.display();
+  button1.display(text[0]);
+  button2.display(text[1]);
+  button3.display(text[2]);
+  button4.display(text[3]);
   buttonB.display(10);
   
   imageMode(CENTER);

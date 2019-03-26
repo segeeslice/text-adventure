@@ -10,7 +10,6 @@ void setup () {
 
   // Fonts are retrieved from the "data" folder
   textFont(createFont(fontFile, fontSize, false), fontSize);
-  textAlign(LEFT,TOP);
   
   noSmooth();
   strokeWeight(2);
@@ -28,8 +27,10 @@ void setup () {
 }
 
 void draw () {
-  mainText(getMainText(jsonObj));
-  optionButtons();
+  String mainText = getMainText(jsonObj);
+  String buttonText[] = getButtonText(jsonObj);
+  mainTextDisplay(mainText);
+  buttonsDisplay(buttonText);
 }
 
 void mousePressed () {
