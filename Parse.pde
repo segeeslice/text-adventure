@@ -1,3 +1,18 @@
+// Get a JSONObject out of a passed file name
+JSONObject parseJSON (String fileName) {
+  JSONObject obj = new JSONObject();
+  
+  if (fileName != null && !fileName.isEmpty()) {
+    try {
+      obj = loadJSONObject(fileName);
+    } catch (Exception e) {
+      println("Could not load file: ", fileName, "\n Error:", e);
+    }
+  }
+  
+  return obj;
+}
+
 String getMainText(JSONObject obj) {
   return obj.isNull("mainText") ? "" : obj.getString("mainText");
 }

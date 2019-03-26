@@ -21,26 +21,14 @@ void setup () {
   // Test file
   // TODO: Add button to load own file
   try {
-    jsonObj = loadJSONObject("demoStart.json");
+    jsonObj = parseJSON("demoStart.json");
+    updateView();
   } catch (Exception e) {
     println("Error:", e); 
   }
 }
 
 void draw () {
-  // Update the view if we've loaded a new jsonObj
-  // Base this on the assumption that main text will not be the same
-  // in two consecutive files
-  String mainText = getMainText(jsonObj);
-  if (textChanged(mainText)) {
-    updateMainText(mainText);
-
-    String buttonText[] = getJSONButtonText(jsonObj);
-    String buttonDest[] = getJSONButtonDest(jsonObj);
-    updateButtonText(buttonText);
-    updateButtonDest(buttonDest);
-  }
-  
   background(40, 40, 40);
   mainTextDisplay();
   buttonsDisplay();
@@ -49,12 +37,19 @@ void draw () {
 void mousePressed () {
   char clicked = mouseOverButton(mouseX, mouseY);
   String dest = getButtonDest(clicked);
+  jsonObj = parseJSON(dest);
   
-  if (dest != null && !dest.isEmpty()) {
-    try {
-      jsonObj = loadJSONObject(dest);
-    } catch (Exception e) {
-      println("Error loading file: ", e);
-    }
+  if (jsonObj.size() != 0) {
+    updateView();
   }
+}
+
+void updateView () {
+  String mainText = getMainText(jsonObj);
+  updateMainText(mainText);
+
+  String buttonText[] = getJSONButtonText(jsonObj);
+  String buttonDest[] = getJSONButtonDest(jsonObj);
+  updateButtonText(buttonText);
+  updateButtonDest(buttonDest);
 }
