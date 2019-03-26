@@ -59,6 +59,7 @@ class Button {
   public void setW (int w_in)  { w = w_in; }
   public void setH (int h_in)  { h = h_in; }
   public void setK (char k_in) { k = k_in; }
+  public void setText (String text_in) { textVal = text_in; }
   
   public int getX () { return x; }
   public int getY () { return y; }
@@ -66,7 +67,7 @@ class Button {
   public int getH () { return h; }
   public char getK () { return k; }
   
-  public void display (String text_in) {
+  public void display () {
     fill(40,40,40);
     rectMode(CORNER);   
     rect(x, y, w, h);
@@ -74,7 +75,7 @@ class Button {
     textAlign(LEFT, TOP);
     rectMode(CORNERS);
     fill(0,255,51);
-    text(text_in, x + 8, y + 8, x + w - 8, y + h - 8);
+    text(textVal, x + 8, y + 8, x + w - 8, y + h - 8);
   }
   
   public void display (int curve) {
@@ -128,20 +129,29 @@ void initButtons () {
 }
 
 // Takes an array of four strings correlating to the four main buttons in order
-void buttonsDisplay(String[] text) {
-  if (text.length < 4) {
-    println("Size error");
-    return;
-  }
-  
-  button1.display(text[0]);
-  button2.display(text[1]);
-  button3.display(text[2]);
-  button4.display(text[3]);
+void buttonsDisplay() {
+  button1.display();
+  button2.display();
+  button3.display();
+  button4.display();
   buttonB.display(10);
   
   imageMode(CENTER);
   image(backImg, backCenterX, backCenterY, buttonB.getW()-padding, buttonB.getH()-padding);
+}
+
+
+// Takes an array of four strings correlating to the four main buttons in order and updates their strings
+void updateButtonText(String[] text) {
+  if (text.length < 4) {
+    println("Could not update button text: size error");
+    return;
+  }
+  
+  button1.setText(text[0]);
+  button2.setText(text[1]);
+  button3.setText(text[2]);
+  button4.setText(text[3]);
 }
 
 /*
