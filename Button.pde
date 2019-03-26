@@ -35,8 +35,9 @@ class Button {
   // Button identifier
   private char k;
   
-  // Text to be displayed
-  String textVal;
+  // Text to be displayed and destination when clicked
+  private String textVal;
+  private String dest;
   
   public Button () {
     x = y = w = h = 0;
@@ -59,13 +60,17 @@ class Button {
   public void setW (int w_in)  { w = w_in; }
   public void setH (int h_in)  { h = h_in; }
   public void setK (char k_in) { k = k_in; }
+  
   public void setText (String text_in) { textVal = text_in; }
+  public void setDest (String dest_in) { dest = dest_in; }
   
   public int getX () { return x; }
   public int getY () { return y; }
   public int getW () { return w; }
   public int getH () { return h; }
   public char getK () { return k; }
+  
+  public String getDest () { return dest; }
   
   public void display () {
     fill(40,40,40);
@@ -148,10 +153,24 @@ void updateButtonText(String[] text) {
     return;
   }
   
+  // TODO: use buttonVect?
   button1.setText(text[0]);
   button2.setText(text[1]);
   button3.setText(text[2]);
   button4.setText(text[3]);
+}
+
+// Takes an array of four strings correlating to the four main buttons in order and updates their destinations
+void updateButtonDest(String[] dest) {
+  if (dest.length < 4) {
+    println("Could not update button dest: size error");
+    return;
+  }
+  
+  button1.setDest(dest[0]);
+  button2.setDest(dest[1]);
+  button3.setDest(dest[2]);
+  button4.setDest(dest[3]);
 }
 
 /*
@@ -168,4 +187,23 @@ char mouseOverButton(int x, int y) {
   }
 
   return ' ';
+}
+
+// Return destination based on passed button key
+// Uses same key conventions as described in mouseOverButton
+String getButtonDest(char keyVal) {  
+  switch (keyVal) {
+    case '1':
+      return button1.getDest();
+    case '2':
+      return button2.getDest();
+    case '3':
+      return button3.getDest();
+    case '4':
+      return button4.getDest();
+    case 'B':
+      // Something here
+    default:
+      return "";
+  }
 }

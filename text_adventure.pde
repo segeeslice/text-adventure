@@ -6,7 +6,6 @@ final int padding = 16;
 
 void setup () {
   size(800, 600);
-  background(40, 40, 40);
 
   // Fonts are retrieved from the "data" folder
   textFont(createFont(fontFile, fontSize, false), fontSize);
@@ -19,6 +18,8 @@ void setup () {
   initButtons();
   initText();
   
+  // Test file
+  // TODO: Add button to load own file
   try {
     jsonObj = loadJSONObject("demoStart.json");
   } catch (Exception e) {
@@ -34,15 +35,26 @@ void draw () {
   if (textChanged(mainText)) {
     updateMainText(mainText);
 
-    String buttonText[] = getButtonText(jsonObj);
+    String buttonText[] = getJSONButtonText(jsonObj);
+    String buttonDest[] = getJSONButtonDest(jsonObj);
     updateButtonText(buttonText);
+    updateButtonDest(buttonDest);
   }
   
+  background(40, 40, 40);
   mainTextDisplay();
   buttonsDisplay();
 }
 
 void mousePressed () {
-  char val = mouseOverButton(mouseX, mouseY);
-  println("Value: ", val);
+  char clicked = mouseOverButton(mouseX, mouseY);
+  String dest = getButtonDest(clicked);
+  
+  if (dest != null && !dest.isEmpty()) {
+    try {
+      jsonObj = loadJSONObject(dest);
+    } catch (Exception e) {
+      println("Error loading file: ", e);
+    }
+  }
 }

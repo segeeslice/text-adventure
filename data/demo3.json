@@ -1,0 +1,20 @@
+{
+  "mainText": "You made it to the third area!",
+  "button1": {
+    "text": "ENTER THE DUNGEON OF DESPAIR",
+    "dest": "demo2.json"
+  },
+  "button2": {
+    "text": "CLIMB THE CLIFF OF DOOM",
+    "dest": "demoStart.json"
+  },
+  "button3": {
+    "text": "PUNCH THE OVERLOOKING CERBERUS",
+    "dest": "demo4.json"
+  },
+  "button4": {
+    "text": "Just hang out ¯\\_(ツ)_/¯",
+    "dest": ""
+  },
+  "backEnable": true
+}
