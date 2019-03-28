@@ -13,6 +13,12 @@ JSONObject parseJSON (String fileName) {
   return obj;
 }
 
+// Parse the file name. If there was an error loading that file, return passed defaultObj
+JSONObject parseJSONDefault (String fileName, JSONObject defaultObj) {
+  JSONObject checkObj = parseJSON(fileName);
+  return checkObj.size() > 0 ? checkObj : defaultObj;
+}
+
 String getMainText(JSONObject obj) {
   return obj.isNull("mainText") ? "" : obj.getString("mainText");
 }

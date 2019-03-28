@@ -37,18 +37,18 @@ void draw () {
 }
 
 void mousePressed () {
+  // Basic input processing
   char clicked = mouseOverButton(mouseX, mouseY);
   String dest = getButtonDest(clicked);
-  jsonObj = parseJSON(dest);
+  jsonObj = parseJSONDefault(dest, jsonObj);
     
   if (jsonObj.size() != 0) {
     // Keep track of our path backwards
     if (clicked != 'B') {
-      println("Push path:", currFile);
       pushBackTrail(jsonObj, currFile);
+    // Update the back button to the next item backwards
     } else {
-      println("Back path:", dest);
-      popBackTrail(jsonObj);
+      popBackTrail();
     }
     
     currFile = dest;
@@ -58,6 +58,15 @@ void mousePressed () {
   }
 }
 
+// -- UTIL FUNCTIONS ---
+
+// Update jsonObj based on what button was clicked
+void updateJSONObj (char clicked) {
+  String dest = getButtonDest(clicked);
+  jsonObj = parseJSONDefault(dest, jsonObj);
+}
+
+// Update the text to reflect the current jsonObj
 void updateView () {
   String mainText = getMainText(jsonObj);
   updateMainText(mainText);
