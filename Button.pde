@@ -8,6 +8,7 @@ The back button is located in the middle of them as such:
 */
 
 import java.util.Vector;
+import java.util.Stack;
 
 // General properties
 final int buttonHeight = 56;
@@ -97,7 +98,11 @@ final Button button3 = new Button(buttonWidth, buttonHeight, '3');
 final Button button4 = new Button(buttonWidth, buttonHeight, '4');
 final Button buttonB = new Button(backButtonWidth, backButtonHeight, 'B');
 
+// For use in iterating through buttons easily (set in initButtons)
 final Vector<Button> buttonVect = new Vector<Button>(5);
+
+// Stack for use in tracking backwards via the back button
+Stack<String> backTrail = new Stack<String>();
 
 //// --- FUNCTIONS ---
 
@@ -202,8 +207,34 @@ String getButtonDest(char keyVal) {
     case '4':
       return button4.getDest();
     case 'B':
-      // Something here
+      return buttonB.getDest();
     default:
       return "";
   }
 }
+
+// Add to the back-tracking trail 
+// To be used when clicking a main button and backEnable is true in the json file
+void pushBackTrail(JSONObject obj, String fileName) {
+  Boolean track = obj.getBoolean("backEnable");
+    
+  if (!backTrail.empty() && backTrail.peek() == fileName) { return; }
+  if (fileName.isEmpty()) { return; }
+  
+  if (track == true) {
+    backTrail.push(fileName);
+    buttonB.setDest(fileName);
+  } else {
+    backTrail = new Stack<String>();
+  }
+}
+
+// Go back a step
+// To be used when the back button is pushed
+void popBackTrail() {
+  // Back trail contains the destinations *including* the one currently assigned to the back button
+  if (!backTrail.empty()) { backTrail.pop(); }
+  
+  String back = backTrail.empty() ? "" : backTrail.peek();
+  buttonB.setDest(back);
+};
