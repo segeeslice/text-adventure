@@ -36,12 +36,15 @@ void draw () {
   buttonsDisplay();
 }
 
-void mousePressed () {
+synchronized void mousePressed () {
   // Basic input processing
   char clicked = mouseOverButton(mouseX, mouseY);
   String dest = getButtonDest(clicked);
+  
+  if (dest.isEmpty()) { return; }
+  
   jsonObj = parseJSONDefault(dest, jsonObj);
-    
+
   if (jsonObj.size() != 0) {
     // Keep track of our path backwards
     if (clicked != 'B') {

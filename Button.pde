@@ -217,12 +217,13 @@ String getButtonDest(char keyVal) {
 // To be used when clicking a main button and backEnable is true in the json file
 void pushBackTrail(JSONObject obj, String fileName) {
   Boolean track = obj.getBoolean("backEnable");
+    
+  if (!backTrail.empty() && backTrail.peek() == fileName) { return; }
+  if (fileName.isEmpty()) { return; }
   
   if (track == true) {
-    if (backTrail.empty() || backTrail.peek() != fileName) {
-      backTrail.push(fileName);
-      buttonB.setDest(fileName);
-    }
+    backTrail.push(fileName);
+    buttonB.setDest(fileName);
   } else {
     backTrail = new Stack<String>();
   }
@@ -231,7 +232,6 @@ void pushBackTrail(JSONObject obj, String fileName) {
 // Go back a step
 // To be used when the back button is pushed
 void popBackTrail() {
-  println(backTrail.empty() ? "Empty" : backTrail.peek());
   // Back trail contains the destinations *including* the one currently assigned to the back button
   if (!backTrail.empty()) { backTrail.pop(); }
   
