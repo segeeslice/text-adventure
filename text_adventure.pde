@@ -14,9 +14,16 @@ void setup () {
   noSmooth();
   strokeWeight(2);
   stroke(0,255,51);
-  
+
+  // Back button 
   backImg = loadImage("back.png");
+
+  // Button column
   openImg = loadImage("open.png");
+  saveImg = loadImage("save.png");
+  optImg = loadImage("opt.png");
+  resImg = loadImage("res.png");
+
   initButtons();
   initText();
   

@@ -16,8 +16,12 @@ final int buttonWidth = 400 - padding*2;
 final int backButtonHeight = 40;
 final int backButtonWidth = 48;
 
-PImage backImg; // Must be set in setup()
+// Must be set in setup()
+PImage backImg;
 PImage openImg;
+PImage saveImg;
+PImage optImg;
+PImage resImg;
 
 // X and Y coordinates of the central point in the back button
 // For use in display and initialization
