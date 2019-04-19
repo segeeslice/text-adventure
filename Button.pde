@@ -17,6 +17,7 @@ final int backButtonHeight = 40;
 final int backButtonWidth = 48;
 
 PImage backImg; // Must be set in setup()
+PImage openImg;
 
 // X and Y coordinates of the central point in the back button
 // For use in display and initialization
@@ -146,8 +147,12 @@ void buttonsDisplay() {
   button4.display();
   buttonB.display(10);
   
+  // Back button image
   imageMode(CENTER);
   image(backImg, backCenterX, backCenterY, buttonB.getW()-padding, buttonB.getH()-padding);
+  
+  // Open file button
+  image(openImg, 200, 200, 100, 100);
 }
 
 

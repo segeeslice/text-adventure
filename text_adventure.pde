@@ -16,6 +16,7 @@ void setup () {
   stroke(0,255,51);
   
   backImg = loadImage("back.png");
+  openImg = loadImage("open.png");
   initButtons();
   initText();
   
