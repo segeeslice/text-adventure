@@ -1,8 +1,16 @@
 # Design
 - Gradient center to replicate old monitor
+- Buttom column
+    - Open file
+    - Save progress
+    - Options
+    - Restart
 
 # Technical
-- File parsing
+- Open file logic
+- Save progress logic
+- Options logic
+- Restart logic
 
 # Documentation
 - General format example in README
