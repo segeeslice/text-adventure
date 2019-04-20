@@ -101,7 +101,7 @@ static class AllButtons {
 
   // Return what button we are over (if any!)
   // References buttons **in order**
-  static Button mouseOverButton (int x, int y) {
+  static Button mouseOverWhich (int x, int y) {
     for (Button b : buttons) {
       if (x >= b.getX() && x <= b.getX() + b.getW() && y >= b.getY() && y <= b.getY() + b.getH()) {
         return b;
@@ -118,6 +118,7 @@ static class AllButtons {
   }
 
   // Return destination based on passed button key
+  // NOTE: Not currently used anywhere; may be deleted?
   static String getButtonDest(char keyVal) {
     for (Button b : buttons) {
       if (b.getK() == keyVal) {

@@ -1,4 +1,5 @@
 /*
+
 All the data for monitoring the choice buttons (bottom of screen)
 
 Buttons are numbered in normal reading order as they would
@@ -35,7 +36,7 @@ Stack<String> backTrail = new Stack<String>();
 // Initialize additional properties of the buttons
 // Handled in this way instead of the constructor since operations
 // like this must be contained in functions
-void initButtons () {
+void initChoiceButtons () {
   // Initialize necessary coordinates
   button3.setX(padding);
   button3.setY(600 - padding - buttonHeight);
@@ -60,7 +61,8 @@ void initButtons () {
   buttonB.setImg(backImg);
 }
 
-// Takes an array of four strings correlating to the four main buttons in order and updates their strings
+// Takes an array of four strings correlating to the
+// four main buttons in order and updates their strings
 void updateChoiceButtonText(String[] text) {
   if (text.length < 4) {
     println("Could not update button text: size error");
@@ -73,7 +75,8 @@ void updateChoiceButtonText(String[] text) {
   button4.setText(text[3]);
 }
 
-// Takes an array of four strings correlating to the four main buttons in order and updates their destinations
+// Takes an array of four strings correlating to the
+// four main buttons in order and updates their destinations
 void updateChoiceButtonDest(String[] dest) {
   if (dest.length < 4) {
     println("Could not update button dest: size error");
@@ -88,7 +91,8 @@ void updateChoiceButtonDest(String[] dest) {
 
 
 // Add to the back-tracking trail
-// To be used when clicking a main button and backEnable is true in the json file
+// To be used when clicking a main button
+// and backEnable is true in the json file
 void pushBackTrail(JSONObject obj, String fileName) {
   Boolean track = obj.getBoolean("backEnable");
 
@@ -106,7 +110,8 @@ void pushBackTrail(JSONObject obj, String fileName) {
 // Go back a step
 // To be used when the back button is pushed
 void popBackTrail() {
-  // Back trail contains the destinations *including* the one currently assigned to the back button
+  // Back trail contains the destinations *including*
+  // the one currently assigned to the back button
   if (!backTrail.empty()) { backTrail.pop(); }
 
   String back = backTrail.empty() ? "" : backTrail.peek();

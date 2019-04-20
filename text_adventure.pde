@@ -24,7 +24,7 @@ void setup () {
   optImg = loadImage("opt.png");
   resImg = loadImage("res.png");
 
-  initButtons();
+  initChoiceButtons();
   initText();
 
   // Test file
@@ -45,8 +45,7 @@ void draw () {
 }
 
 synchronized void mousePressed () {
-  Button clicked = AllButtons.mouseOverButton(mouseX, mouseY);
-
+  Button clicked = AllButtons.mouseOverWhich(mouseX, mouseY);
   if (clicked == null) { return; }
 
   jsonObj = parseJSONDefault(clicked.getDest(), jsonObj);
