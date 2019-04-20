@@ -27,6 +27,7 @@ class Button {
     x = y = w = h = dispCurve = 0;
     k = ' ';
     textVal = "";
+    dest = "";
     img = new PImage();
 
     AllButtons.add(this);
@@ -35,6 +36,7 @@ class Button {
   public Button (int w_in, int h_in, char k_in) {
     x = y = dispCurve = 0;
     textVal = "";
+    dest = "";
 
     w = w_in;
     h = h_in;
@@ -50,7 +52,6 @@ class Button {
 
     dispCurve = dispCurve_in;
   }
-
 
   public void setY (int y_in)  { y = y_in; }
   public void setX (int x_in)  { x = x_in; }
@@ -98,18 +99,16 @@ static class AllButtons {
     buttons.add(b);
   }
 
-
-  // Returns the key of the button under x and y (if any)
-  // Returns ' ' if no button under x and y
+  // Return what button we are over (if any!)
   // References buttons **in order**
-  static char mouseOverButton (int x, int y) {
+  static Button mouseOverButton (int x, int y) {
     for (Button b : buttons) {
       if (x >= b.getX() && x <= b.getX() + b.getW() && y >= b.getY() && y <= b.getY() + b.getH()) {
-        return b.getK();
+        return b;
       }
     }
 
-    return ' ';
+    return null;
   }
 
   static void display () {

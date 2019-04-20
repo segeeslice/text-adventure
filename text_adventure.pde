@@ -45,24 +45,23 @@ void draw () {
 }
 
 synchronized void mousePressed () {
-  // Basic input processing
-  char clicked = AllButtons.mouseOverButton(mouseX, mouseY);
-  String dest = AllButtons.getButtonDest(clicked);
+  Button clicked = AllButtons.mouseOverButton(mouseX, mouseY);
 
-  if (dest.isEmpty()) { return; }
+  if (clicked == null) { return; }
 
-  jsonObj = parseJSONDefault(dest, jsonObj);
+  jsonObj = parseJSONDefault(clicked.getDest(), jsonObj);
 
   if (jsonObj.size() != 0) {
     // Keep track of our path backwards
-    if (clicked != 'B') {
+    if (clicked.getK() != 'B') {
       pushBackTrail(jsonObj, currFile);
+
     // Update the back button to the next item backwards
     } else {
       popBackTrail();
     }
 
-    currFile = dest;
+    currFile = clicked.getDest();
 
     // Update the view and its data to reflect the new jsonObj
     updateView();
@@ -70,12 +69,6 @@ synchronized void mousePressed () {
 }
 
 // -- UTIL FUNCTIONS ---
-
-// Update jsonObj based on what button was clicked
-void updateJSONObj (char clicked) {
-  String dest = AllButtons.getButtonDest(clicked);
-  jsonObj = parseJSONDefault(dest, jsonObj);
-}
 
 // Update the text to reflect the current jsonObj
 void updateView () {
