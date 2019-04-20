@@ -13,9 +13,9 @@ String MAIN_TEXT = "";
 
 // Must be done in this way to utilize button locations
 void initText () {
-  textX1 = padding+5; // Additional 5 to roughly center
+  textX1 = padding;
   textY1 = padding;
-  textX2 = 800-padding;
+  textX2 = 800-padding-50;
   textY2 = button1.getY() - padding;
 }
 

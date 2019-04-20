@@ -14,19 +14,19 @@ The back button is located in the middle of them as such:
 import java.util.Stack;
 
 // General properties
-final int buttonHeight = 56;
-final int buttonWidth = 400 - padding*2;
-final int backButtonHeight = 40;
-final int backButtonWidth = 48;
+final int choiceHeight = 56;
+final int choiceWidth = 400 - padding*2;
+final int backHeight = 40;
+final int backWidth = 48;
 
 // Must be set in setup()
 PImage backImg;
 
-final Button button1 = new Button(buttonWidth, buttonHeight, '1');
-final Button button2 = new Button(buttonWidth, buttonHeight, '2');
-final Button button3 = new Button(buttonWidth, buttonHeight, '3');
-final Button button4 = new Button(buttonWidth, buttonHeight, '4');
-final Button buttonB = new Button(backButtonWidth, backButtonHeight, 'B', 10);
+final Button button1 = new Button(choiceWidth, choiceHeight, '1');
+final Button button2 = new Button(choiceWidth, choiceHeight, '2');
+final Button button3 = new Button(choiceWidth, choiceHeight, '3');
+final Button button4 = new Button(choiceWidth, choiceHeight, '4');
+final Button buttonB = new Button(backWidth, backHeight, 'B', 10);
 
 // Stack for use in tracking backwards via the back button
 Stack<String> backTrail = new Stack<String>();
@@ -39,22 +39,22 @@ Stack<String> backTrail = new Stack<String>();
 void initChoiceButtons () {
   // Initialize necessary coordinates
   button3.setX(padding);
-  button3.setY(600 - padding - buttonHeight);
+  button3.setY(600 - padding - choiceHeight);
   button1.setX(button3.getX());
-  button1.setY(button3.getY() - padding - buttonHeight);
+  button1.setY(button3.getY() - padding - choiceHeight);
 
-  button4.setX(button3.getX() + 2*padding + buttonWidth);
+  button4.setX(button3.getX() + 2*padding + choiceWidth);
   button4.setY(button3.getY());
   button2.setX(button4.getX());
   button2.setY(button1.getY());
 
   // Process central point of back button
-  int backCenterX = buttonWidth + 2*padding;
+  int backCenterX = choiceWidth + 2*padding;
   int backCenterY = button3.getY() - (Integer)(padding/2);
 
   // Back button central to corner coordinates conversion
-  int backX = backCenterX - (Integer)(backButtonWidth  / 2);
-  int backY = backCenterY - (Integer)(backButtonHeight / 2);
+  int backX = backCenterX - (Integer)(backWidth  / 2);
+  int backY = backCenterY - (Integer)(backHeight / 2);
 
   buttonB.setX(backX);
   buttonB.setY(backY);

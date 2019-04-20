@@ -25,6 +25,7 @@ void setup () {
   resImg = loadImage("res.png");
 
   initChoiceButtons();
+  initColButtons();
   initText();
 
   // Test file
