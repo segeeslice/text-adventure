@@ -10,12 +10,12 @@ void setup () {
 
   // Fonts are retrieved from the "data" folder
   textFont(createFont(fontFile, fontSize, false), fontSize);
-  
+
   noSmooth();
   strokeWeight(2);
   stroke(0,255,51);
 
-  // Back button 
+  // Back button
   backImg = loadImage("back.png");
 
   // Button column
@@ -26,7 +26,7 @@ void setup () {
 
   initButtons();
   initText();
-  
+
   // Test file
   // TODO: Add button to load own file
   try {
@@ -34,23 +34,23 @@ void setup () {
     currFile = "demoStart.json";
     updateView();
   } catch (Exception e) {
-    println("Error:", e); 
+    println("Error:", e);
   }
 }
 
 void draw () {
   background(40, 40, 40);
   mainTextDisplay();
-  buttonsDisplay();
+  AllButtons.display();
 }
 
 synchronized void mousePressed () {
   // Basic input processing
-  char clicked = mouseOverButton(mouseX, mouseY);
-  String dest = getButtonDest(clicked);
-  
+  char clicked = AllButtons.mouseOverButton(mouseX, mouseY);
+  String dest = AllButtons.getButtonDest(clicked);
+
   if (dest.isEmpty()) { return; }
-  
+
   jsonObj = parseJSONDefault(dest, jsonObj);
 
   if (jsonObj.size() != 0) {
@@ -61,9 +61,9 @@ synchronized void mousePressed () {
     } else {
       popBackTrail();
     }
-    
+
     currFile = dest;
-    
+
     // Update the view and its data to reflect the new jsonObj
     updateView();
   }
@@ -73,7 +73,7 @@ synchronized void mousePressed () {
 
 // Update jsonObj based on what button was clicked
 void updateJSONObj (char clicked) {
-  String dest = getButtonDest(clicked);
+  String dest = AllButtons.getButtonDest(clicked);
   jsonObj = parseJSONDefault(dest, jsonObj);
 }
 
@@ -84,6 +84,6 @@ void updateView () {
 
   String buttonText[] = getJSONButtonText(jsonObj);
   String buttonDest[] = getJSONButtonDest(jsonObj);
-  updateButtonText(buttonText);
-  updateButtonDest(buttonDest);
+  updateChoiceButtonText(buttonText);
+  updateChoiceButtonDest(buttonDest);
 }

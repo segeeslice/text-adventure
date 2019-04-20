@@ -1,5 +1,5 @@
 {
-  "mainText": "This is the mainText area of the page!",
+  "mainText": "This is the mainText area of the page! Here is a bunch of test text:\nowifjawoeifjawepfoiawjefpoawiefawpefoawhefpawoiefjawpeofiawjefpoawiefjpwaoeifjawpeofijawepofiawjepfoiawjefpoawiejfapwoeifjawpeofijawepfoiawjefpawoiejfawpoefijawepofiawjefpoawijefpawoiefjawpoefijawefpoiawjefpoawijefwepoijf",
   "button1": {
     "text": "Go to the second area",
     "dest": "demo2.json"
