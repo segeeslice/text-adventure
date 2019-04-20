@@ -1,249 +1,131 @@
-/*
-Buttons are numbered in normal reading order as they would appear on the screen.
-The back button is located in the middle of them as such:
-
-1   2
-  B
-3   4
-*/
-
 import java.util.Vector;
-import java.util.Stack;
 
-// General properties
-final int buttonHeight = 56;
-final int buttonWidth = 400 - padding*2;
-final int backButtonHeight = 40;
-final int backButtonWidth = 48;
-
-// Must be set in setup()
-PImage backImg;
-PImage openImg;
-PImage saveImg;
-PImage optImg;
-PImage resImg;
-
-// X and Y coordinates of the central point in the back button
-// For use in display and initialization
-int backCenterX;
-int backCenterY;
-
-// Basic class for storing each button's info
+// Class for storing meta data on buttons and internal functionality
 class Button {
   // Top-left corner x and y coordinates
   private int x;
   private int y;
-  
+
   // Width and height
   private int w;
   private int h;
-  
+
   // Button identifier
   private char k;
-  
+
   // Text to be displayed and destination when clicked
   private String textVal;
   private String dest;
-  
+
+  // Curve for the corner of the button (if any)
+  private int dispCurve;
+
+  // Image to be displayed in the button (if any)
+  private PImage img;
+
   public Button () {
-    x = y = w = h = 0;
+    x = y = w = h = dispCurve = 0;
     k = ' ';
     textVal = "";
+    dest = "";
+    img = new PImage();
+
+    AllButtons.add(this);
   }
-  
+
   public Button (int w_in, int h_in, char k_in) {
-    x = y = 0;
+    x = y = dispCurve = 0;
     textVal = "";
-    
+    dest = "";
+
     w = w_in;
     h = h_in;
     k = k_in;
+
+    img = new PImage();
+
+    AllButtons.add(this);
   }
-  
-  
-  public void setX (int x_in)  { x = x_in; }
+
+  public Button (int w_in, int h_in, char k_in, int dispCurve_in) {
+    this(w_in, h_in, k_in);
+
+    dispCurve = dispCurve_in;
+  }
+
   public void setY (int y_in)  { y = y_in; }
+  public void setX (int x_in)  { x = x_in; }
   public void setW (int w_in)  { w = w_in; }
   public void setH (int h_in)  { h = h_in; }
   public void setK (char k_in) { k = k_in; }
-  
+  public void setImg (PImage img_in) { img = img_in; }
+
   public void setText (String text_in) { textVal = text_in; }
   public void setDest (String dest_in) { dest = dest_in; }
-  
+
   public int getX () { return x; }
   public int getY () { return y; }
   public int getW () { return w; }
   public int getH () { return h; }
   public char getK () { return k; }
-  
+
   public String getDest () { return dest; }
-  
+
   public void display () {
     fill(40,40,40);
-    rectMode(CORNER);   
-    rect(x, y, w, h);
-    
+    rectMode(CORNER);
+    rect(x, y, w, h, dispCurve);
+
     textAlign(LEFT, TOP);
     rectMode(CORNERS);
     fill(0,255,51);
     text(textVal, x + 8, y + 8, x + w - 8, y + h - 8);
-  }
-  
-  public void display (int curve) {
-    fill(40,40,40);
-    rectMode(CORNER);
-    
-    rect(x, y, w, h, curve);
+
+    int centerX = x + w / 2;
+    int centerY = y + h / 2;
+
+    imageMode(CENTER);
+    image(img, centerX, centerY, w-padding, h-padding);
   }
 };
 
-final Button button1 = new Button(buttonWidth, buttonHeight, '1');
-final Button button2 = new Button(buttonWidth, buttonHeight, '2');
-final Button button3 = new Button(buttonWidth, buttonHeight, '3');
-final Button button4 = new Button(buttonWidth, buttonHeight, '4');
-final Button buttonB = new Button(backButtonWidth, backButtonHeight, 'B');
 
-// For use in iterating through buttons easily (set in initButtons)
-final Vector<Button> buttonVect = new Vector<Button>(5);
+// Way to manage all of the buttons at once
+// All buttons are added to this within the constructor
+static class AllButtons {
+  static private Vector<Button> buttons = new Vector<Button>();
 
-// Stack for use in tracking backwards via the back button
-Stack<String> backTrail = new Stack<String>();
-
-//// --- FUNCTIONS ---
-
-// NOTE: must be done in this way and run from setup() 
-void initButtons () {
-  // Initialize necessary coordinates
-  button3.setX(padding);
-  button3.setY(600 - padding - buttonHeight);
-  button1.setX(button3.getX());
-  button1.setY(button3.getY() - padding - buttonHeight);
-  
-  button4.setX(button3.getX() + 2*padding + buttonWidth);
-  button4.setY(button3.getY());
-  button2.setX(button4.getX());
-  button2.setY(button1.getY());
-  
-  // Process central point of back button
-  backCenterX = buttonWidth + 2*padding;
-  backCenterY = button3.getY() - (Integer)(padding/2);
-  
-  // Back button central to corner coordinates conversion
-  int backX = backCenterX - (Integer)(backButtonWidth  / 2);
-  int backY = backCenterY - (Integer)(backButtonHeight / 2);
-  
-  buttonB.setX(backX);
-  buttonB.setY(backY);
-  
-  // Init button vector
-  buttonVect.add(buttonB);
-  buttonVect.add(button1);
-  buttonVect.add(button2);
-  buttonVect.add(button3);
-  buttonVect.add(button4);
-}
-
-// Takes an array of four strings correlating to the four main buttons in order
-void buttonsDisplay() {
-  button1.display();
-  button2.display();
-  button3.display();
-  button4.display();
-  buttonB.display(10);
-  
-  // Back button image
-  imageMode(CENTER);
-  image(backImg, backCenterX, backCenterY, buttonB.getW()-padding, buttonB.getH()-padding);
-  
-  // Open file button
-  image(openImg, 200, 200, 100, 100);
-}
-
-
-// Takes an array of four strings correlating to the four main buttons in order and updates their strings
-void updateButtonText(String[] text) {
-  if (text.length < 4) {
-    println("Could not update button text: size error");
-    return;
+  static void add (Button b) {
+    buttons.add(b);
   }
-  
-  // TODO: use buttonVect?
-  button1.setText(text[0]);
-  button2.setText(text[1]);
-  button3.setText(text[2]);
-  button4.setText(text[3]);
-}
 
-// Takes an array of four strings correlating to the four main buttons in order and updates their destinations
-void updateButtonDest(String[] dest) {
-  if (dest.length < 4) {
-    println("Could not update button dest: size error");
-    return;
+  // Return what button we are over (if any!)
+  // References buttons **in order**
+  static Button mouseOverWhich (int x, int y) {
+    for (Button b : buttons) {
+      if (x >= b.getX() && x <= b.getX() + b.getW() && y >= b.getY() && y <= b.getY() + b.getH()) {
+        return b;
+      }
+    }
+
+    return null;
   }
-  
-  button1.setDest(dest[0]);
-  button2.setDest(dest[1]);
-  button3.setDest(dest[2]);
-  button4.setDest(dest[3]);
-}
 
-/*
-Returns one the following:
-  - 1-4: x, y is over one of those numbered buttons
-  - B:   x, y is over the back button
-  - ' ':  x, y is over none of the buttons
-*/
-char mouseOverButton(int x, int y) {
-  for (Button b : buttonVect) {
-    if (x >= b.getX() && x <= b.getX() + b.getW() && y >= b.getY() && y <= b.getY() + b.getH()) {
-      return b.getK();
+  static void display () {
+    for (Button b : buttons) {
+      b.display();
     }
   }
 
-  return ' ';
-}
+  // Return destination based on passed button key
+  // NOTE: Not currently used anywhere; may be deleted?
+  static String getButtonDest(char keyVal) {
+    for (Button b : buttons) {
+      if (b.getK() == keyVal) {
+        return b.getDest();
+      }
+    }
 
-// Return destination based on passed button key
-// Uses same key conventions as described in mouseOverButton
-String getButtonDest(char keyVal) {  
-  switch (keyVal) {
-    case '1':
-      return button1.getDest();
-    case '2':
-      return button2.getDest();
-    case '3':
-      return button3.getDest();
-    case '4':
-      return button4.getDest();
-    case 'B':
-      return buttonB.getDest();
-    default:
-      return "";
+    return "";
   }
-}
-
-// Add to the back-tracking trail 
-// To be used when clicking a main button and backEnable is true in the json file
-void pushBackTrail(JSONObject obj, String fileName) {
-  Boolean track = obj.getBoolean("backEnable");
-    
-  if (!backTrail.empty() && backTrail.peek() == fileName) { return; }
-  if (fileName.isEmpty()) { return; }
-  
-  if (track == true) {
-    backTrail.push(fileName);
-    buttonB.setDest(fileName);
-  } else {
-    backTrail = new Stack<String>();
-  }
-}
-
-// Go back a step
-// To be used when the back button is pushed
-void popBackTrail() {
-  // Back trail contains the destinations *including* the one currently assigned to the back button
-  if (!backTrail.empty()) { backTrail.pop(); }
-  
-  String back = backTrail.empty() ? "" : backTrail.peek();
-  buttonB.setDest(back);
 };

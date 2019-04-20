@@ -10,12 +10,12 @@ void setup () {
 
   // Fonts are retrieved from the "data" folder
   textFont(createFont(fontFile, fontSize, false), fontSize);
-  
+
   noSmooth();
   strokeWeight(2);
   stroke(0,255,51);
 
-  // Back button 
+  // Back button
   backImg = loadImage("back.png");
 
   // Button column
@@ -24,9 +24,9 @@ void setup () {
   optImg = loadImage("opt.png");
   resImg = loadImage("res.png");
 
-  initButtons();
+  initChoiceButtons();
   initText();
-  
+
   // Test file
   // TODO: Add button to load own file
   try {
@@ -34,48 +34,40 @@ void setup () {
     currFile = "demoStart.json";
     updateView();
   } catch (Exception e) {
-    println("Error:", e); 
+    println("Error:", e);
   }
 }
 
 void draw () {
   background(40, 40, 40);
   mainTextDisplay();
-  buttonsDisplay();
+  AllButtons.display();
 }
 
 synchronized void mousePressed () {
-  // Basic input processing
-  char clicked = mouseOverButton(mouseX, mouseY);
-  String dest = getButtonDest(clicked);
-  
-  if (dest.isEmpty()) { return; }
-  
-  jsonObj = parseJSONDefault(dest, jsonObj);
+  Button clicked = AllButtons.mouseOverWhich(mouseX, mouseY);
+  if (clicked == null) { return; }
+
+  jsonObj = parseJSONDefault(clicked.getDest(), jsonObj);
 
   if (jsonObj.size() != 0) {
     // Keep track of our path backwards
-    if (clicked != 'B') {
+    if (clicked.getK() != 'B') {
       pushBackTrail(jsonObj, currFile);
+
     // Update the back button to the next item backwards
     } else {
       popBackTrail();
     }
-    
-    currFile = dest;
-    
+
+    currFile = clicked.getDest();
+
     // Update the view and its data to reflect the new jsonObj
     updateView();
   }
 }
 
 // -- UTIL FUNCTIONS ---
-
-// Update jsonObj based on what button was clicked
-void updateJSONObj (char clicked) {
-  String dest = getButtonDest(clicked);
-  jsonObj = parseJSONDefault(dest, jsonObj);
-}
 
 // Update the text to reflect the current jsonObj
 void updateView () {
@@ -84,6 +76,6 @@ void updateView () {
 
   String buttonText[] = getJSONButtonText(jsonObj);
   String buttonDest[] = getJSONButtonDest(jsonObj);
-  updateButtonText(buttonText);
-  updateButtonDest(buttonDest);
+  updateChoiceButtonText(buttonText);
+  updateChoiceButtonDest(buttonDest);
 }
