@@ -27,16 +27,6 @@ void setup () {
   initChoiceButtons();
   initColButtons();
   initText();
-
-  // Test file
-  // TODO: Add button to load own file
-  try {
-    jsonObj = parseJSON("demoStart.json");
-    currFile = "demoStart.json";
-    updateView();
-  } catch (Exception e) {
-    println("Error:", e);
-  }
 }
 
 void draw () {
@@ -48,23 +38,36 @@ void draw () {
 synchronized void mousePressed () {
   Button clicked = AllButtons.mouseOverWhich(mouseX, mouseY);
   if (clicked == null) { return; }
+  char clickKey = clicked.getK();
 
-  jsonObj = parseJSONDefault(clicked.getDest(), jsonObj);
+  switch (clickKey) {
+    case 'O':
+      selectInput("Select the starter file", "openFile");
+      break;
+    case 'S':
+      break;
+    case 'o':
+      break;
+    case 'R':
+      break;
+    default:
+      jsonObj = parseJSONDefault(clicked.getDest(), jsonObj);
 
-  if (jsonObj.size() != 0) {
-    // Keep track of our path backwards
-    if (clicked.getK() != 'B') {
-      pushBackTrail(jsonObj, currFile);
+      if (jsonObj.size() != 0) {
+        // Keep track of our path backwards
+        if (clicked.getK() != 'B') {
+          pushBackTrail(jsonObj, currFile);
 
-    // Update the back button to the next item backwards
-    } else {
-      popBackTrail();
-    }
+        // Update the back button to the next item backwards
+        } else {
+          popBackTrail();
+        }
 
-    currFile = clicked.getDest();
+        currFile = clicked.getDest();
 
-    // Update the view and its data to reflect the new jsonObj
-    updateView();
+        // Update the view and its data to reflect the new jsonObj
+        updateView();
+      }
   }
 }
 
@@ -79,4 +82,21 @@ void updateView () {
   String buttonDest[] = getJSONButtonDest(jsonObj);
   updateChoiceButtonText(buttonText);
   updateChoiceButtonDest(buttonDest);
+}
+
+void openFile (File file) {
+  if (file == null) {
+    println("User did not enter a file");
+    return;
+  }
+
+  JSONObject temp = parseJSON(file.getPath());
+  if (temp.size() == 0) {
+    println("Data file not found at", file.getPath());
+    return;
+  }
+
+  jsonObj = temp;
+  currFile = file.getPath();
+  updateView();
 }
