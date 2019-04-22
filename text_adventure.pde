@@ -1,5 +1,6 @@
 JSONObject jsonObj = new JSONObject();
-String currFile = "";
+String currFile = ""; // Store full path to the current file
+String currPath = ""; // Store just parent directory of current adventure
 
 final String fontFile = "IBM_VGA8.ttf";
 final int fontSize = 16;
@@ -27,16 +28,6 @@ void setup () {
   initChoiceButtons();
   initColButtons();
   initText();
-
-  // Test file
-  // TODO: Add button to load own file
-  try {
-    jsonObj = parseJSON("demoStart.json");
-    currFile = "demoStart.json";
-    updateView();
-  } catch (Exception e) {
-    println("Error:", e);
-  }
 }
 
 void draw () {
@@ -48,23 +39,44 @@ void draw () {
 synchronized void mousePressed () {
   Button clicked = AllButtons.mouseOverWhich(mouseX, mouseY);
   if (clicked == null) { return; }
+  char clickKey = clicked.getK();
 
-  jsonObj = parseJSONDefault(clicked.getDest(), jsonObj);
+  switch (clickKey) {
+    case 'O':
+      selectInput("Select the starter file", "openFile");
+      break;
+    case 'S':
+      break;
+    case 'o':
+      break;
+    case 'R':
+      break;
+    default:
+      // Just to silence some errors that would arise when trying to load dest
+      if (clicked.getDest().isEmpty()) { return; }
 
-  if (jsonObj.size() != 0) {
-    // Keep track of our path backwards
-    if (clicked.getK() != 'B') {
-      pushBackTrail(jsonObj, currFile);
+      // Allow for files from any location
+      // Only set current file to the file name
+      String destFile = clicked.getDest();
+      String destFullPath = currPath + File.separator + destFile;
 
-    // Update the back button to the next item backwards
-    } else {
-      popBackTrail();
-    }
+      jsonObj = parseJSON(destFullPath);
 
-    currFile = clicked.getDest();
+      if (jsonObj.size() != 0) {
+        // Keep track of our path backwards
+        if (clicked.getK() != 'B') {
+          pushBackTrail(jsonObj, currFile);
 
-    // Update the view and its data to reflect the new jsonObj
-    updateView();
+        // Update the back button to the next item backwards
+        } else {
+          popBackTrail();
+        }
+
+        currFile = destFile;
+
+        // Update the view and its data to reflect the new jsonObj
+        updateView();
+      }
   }
 }
 
@@ -79,4 +91,23 @@ void updateView () {
   String buttonDest[] = getJSONButtonDest(jsonObj);
   updateChoiceButtonText(buttonText);
   updateChoiceButtonDest(buttonDest);
+}
+
+void openFile (File file) {
+  if (file == null) {
+    println("User did not enter a file");
+    return;
+  }
+
+  JSONObject temp = parseJSON(file.getPath());
+  if (temp.size() == 0) {
+    // TODO: Pop-up dialog to user?
+    println("Data file not found at", file.getPath());
+    return;
+  }
+
+  jsonObj = temp;
+  currFile = file.getName();
+  currPath = file.getParent(); // Store path so user can store data wherever they want
+  updateView();
 }
