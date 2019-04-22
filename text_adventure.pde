@@ -1,5 +1,6 @@
 JSONObject jsonObj = new JSONObject();
-String currFile = "";
+String currFile = ""; // Store full path to the current file
+String currPath = ""; // Store just parent directory of current adventure
 
 final String fontFile = "IBM_VGA8.ttf";
 final int fontSize = 16;
@@ -51,7 +52,15 @@ synchronized void mousePressed () {
     case 'R':
       break;
     default:
-      jsonObj = parseJSONDefault(clicked.getDest(), jsonObj);
+      // Just to silence some errors that would arise when trying to load dest
+      if (clicked.getDest().isEmpty()) { return; }
+
+      // Allow for files from any location
+      // Only set current file to the file name
+      String destFile = clicked.getDest();
+      String destFullPath = currPath + File.separator + destFile;
+
+      jsonObj = parseJSON(destFullPath);
 
       if (jsonObj.size() != 0) {
         // Keep track of our path backwards
@@ -63,7 +72,7 @@ synchronized void mousePressed () {
           popBackTrail();
         }
 
-        currFile = clicked.getDest();
+        currFile = destFile;
 
         // Update the view and its data to reflect the new jsonObj
         updateView();
@@ -92,11 +101,13 @@ void openFile (File file) {
 
   JSONObject temp = parseJSON(file.getPath());
   if (temp.size() == 0) {
+    // TODO: Pop-up dialog to user?
     println("Data file not found at", file.getPath());
     return;
   }
 
   jsonObj = temp;
-  currFile = file.getPath();
+  currFile = file.getName();
+  currPath = file.getParent(); // Store path so user can store data wherever they want
   updateView();
 }
