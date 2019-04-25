@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+
 JSONObject jsonObj = new JSONObject();
 String currFile = ""; // Store full path to the current file
 String currPath = ""; // Store just parent directory of current adventure
@@ -43,9 +45,14 @@ synchronized void mousePressed () {
 
   switch (clickKey) {
     case 'O':
-      selectInput("Select the starter file", "openFile");
+      // In the future, adapt to open from save or from starter file
+      selectInput("Select a starter or save file", "openFile");
       break;
     case 'S':
+      // TODO: Have a menu appear with various save locations?
+      // Currently just saves the output. May need to add
+      // special "save" file type
+      selectInput("Select a save location", "saveFile");
       break;
     case 'o':
       break;
@@ -111,3 +118,20 @@ void openFile (File file) {
   currPath = file.getParent(); // Store path so user can store data wherever they want
   updateView();
 }
+
+void saveFile (File file) {
+  if (file == null) {
+    println("User did not enter a file");
+    return;
+  }
+
+  try {
+    FileWriter fileWrite = new FileWriter(file.getPath());
+    fileWrite.write(jsonObj.toString());
+    fileWrite.flush();
+
+  } catch (IOException e) {
+    e.printStackTrace();
+  }
+}
+
