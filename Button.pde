@@ -91,12 +91,20 @@ class Button {
 
 
 // Way to manage all of the buttons at once
-// All buttons are added to this within the constructor
+// All buttons are added to this within the Button constructor
 static class AllButtons {
   static private Vector<Button> buttons = new Vector<Button>();
 
   static void add (Button b) {
     buttons.add(b);
+  }
+
+  // Ideally this would be in the deconstructor of Button, but
+  // that is not an option in Java
+  static void remove (Button b) {
+    if (buttons.remove(b) == false) {
+      println("Button removal unsuccessful");
+    }
   }
 
   // Return what button we are over (if any!)

@@ -33,3 +33,11 @@ void mainTextDisplay() {
   textAlign(LEFT, TOP);
   text(MAIN_TEXT, textX1, textY1, textX2, textY2);
 }
+
+int getTextMidY () {
+  return (textY2 + textY1) / 2;
+}
+
+int getTextMidX () {
+  return (textX2 + textX1) / 2;
+}

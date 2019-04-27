@@ -30,12 +30,14 @@ void setup () {
   initChoiceButtons();
   initColButtons();
   initText();
+  initSave();
 }
 
 void draw () {
   background(40, 40, 40);
   mainTextDisplay();
   AllButtons.display();
+  saveDialog();
 }
 
 synchronized void mousePressed () {
@@ -52,7 +54,7 @@ synchronized void mousePressed () {
       // TODO: Have a menu appear with various save locations?
       // Currently just saves the output. May need to add
       // special "save" file type
-      selectInput("Select a save location", "saveFile");
+      saveToggle();
       break;
     case 'o':
       break;
@@ -117,21 +119,5 @@ void openFile (File file) {
   currFile = file.getName();
   currPath = file.getParent(); // Store path so user can store data wherever they want
   updateView();
-}
-
-void saveFile (File file) {
-  if (file == null) {
-    println("User did not enter a file");
-    return;
-  }
-
-  try {
-    FileWriter fileWrite = new FileWriter(file.getPath());
-    fileWrite.write(jsonObj.toString());
-    fileWrite.flush();
-
-  } catch (IOException e) {
-    e.printStackTrace();
-  }
 }
 
