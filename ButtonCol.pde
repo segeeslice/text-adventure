@@ -11,10 +11,10 @@ final int colWidth = 50 - padding/2;
 final int colHeight = 50 - padding/2;
 final int colX = 800 - colWidth - padding;
 
-final Button openButton = new Button(colWidth, colHeight, 'O', 10);
-final Button saveButton = new Button(colWidth, colHeight, 'S', 10);
-final Button optButton  = new Button(colWidth, colHeight, 'o', 10);
-final Button resButton  = new Button(colWidth, colHeight, 'R', 10);
+final Button openButton = new Button(colWidth, colHeight, "O", 10);
+final Button saveButton = new Button(colWidth, colHeight, "S", 10);
+final Button optButton  = new Button(colWidth, colHeight, "o", 10);
+final Button resButton  = new Button(colWidth, colHeight, "R", 10);
 
 void initColButtons () {
   openButton.setX(colX);

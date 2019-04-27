@@ -11,7 +11,7 @@ class Button {
   private int h;
 
   // Button identifier
-  private char k;
+  private String k;
 
   // Text to be displayed and destination when clicked
   private String textVal;
@@ -25,7 +25,7 @@ class Button {
 
   public Button () {
     x = y = w = h = dispCurve = 0;
-    k = ' ';
+    k = "";
     textVal = "";
     dest = "";
     img = new PImage();
@@ -33,7 +33,7 @@ class Button {
     AllButtons.add(this);
   }
 
-  public Button (int w_in, int h_in, char k_in) {
+  public Button (int w_in, int h_in, String k_in) {
     x = y = dispCurve = 0;
     textVal = "";
     dest = "";
@@ -47,7 +47,7 @@ class Button {
     AllButtons.add(this);
   }
 
-  public Button (int w_in, int h_in, char k_in, int dispCurve_in) {
+  public Button (int w_in, int h_in, String k_in, int dispCurve_in) {
     this(w_in, h_in, k_in);
 
     dispCurve = dispCurve_in;
@@ -57,7 +57,7 @@ class Button {
   public void setX (int x_in)  { x = x_in; }
   public void setW (int w_in)  { w = w_in; }
   public void setH (int h_in)  { h = h_in; }
-  public void setK (char k_in) { k = k_in; }
+  public void setK (String k_in) { k = k_in; }
   public void setImg (PImage img_in) { img = img_in; }
 
   public void setText (String text_in) { textVal = text_in; }
@@ -67,7 +67,7 @@ class Button {
   public int getY () { return y; }
   public int getW () { return w; }
   public int getH () { return h; }
-  public char getK () { return k; }
+  public String getK () { return k; }
 
   public String getDest () { return dest; }
 
@@ -127,9 +127,9 @@ static class AllButtons {
 
   // Return destination based on passed button key
   // NOTE: Not currently used anywhere; may be deleted?
-  static String getButtonDest(char keyVal) {
+  static String getButtonDest(String keyVal) {
     for (Button b : buttons) {
-      if (b.getK() == keyVal) {
+      if (b.getK().equals(keyVal)) {
         return b.getDest();
       }
     }
