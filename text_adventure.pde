@@ -36,8 +36,8 @@ void setup () {
 void draw () {
   background(40, 40, 40);
   mainTextDisplay();
-  AllButtons.display();
   saveDialog();
+  AllButtons.display();
 }
 
 synchronized void mousePressed () {
