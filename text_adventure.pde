@@ -46,19 +46,19 @@ synchronized void mousePressed () {
   String clickKey = clicked.getK();
 
   switch (clickKey) {
-    case "O":
+    case "open":
       // In the future, adapt to open from save or from starter file
       selectInput("Select a starter or save file", "openFile");
       break;
-    case "S":
+    case "save":
       // TODO: Have a menu appear with various save locations?
       // Currently just saves the output. May need to add
       // special "save" file type
       saveToggle();
       break;
-    case "o":
+    case "opt":
       break;
-    case "R":
+    case "res":
       break;
     default:
       // Just to silence some errors that would arise when trying to load dest
@@ -73,7 +73,7 @@ synchronized void mousePressed () {
 
       if (jsonObj.size() != 0) {
         // Keep track of our path backwards
-        if (!clicked.getK().equals("B")) {
+        if (!clicked.getK().equals("back")) {
           pushBackTrail(jsonObj, currFile);
 
         // Update the back button to the next item backwards

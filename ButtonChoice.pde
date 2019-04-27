@@ -22,11 +22,11 @@ final int backWidth = 48;
 // Must be set in setup()
 PImage backImg;
 
-final Button button1 = new Button(choiceWidth, choiceHeight, "1");
-final Button button2 = new Button(choiceWidth, choiceHeight, "2");
-final Button button3 = new Button(choiceWidth, choiceHeight, "3");
-final Button button4 = new Button(choiceWidth, choiceHeight, "4");
-final Button buttonB = new Button(backWidth, backHeight, "B", 10);
+final Button button1 = new Button(choiceWidth, choiceHeight, "choice1");
+final Button button2 = new Button(choiceWidth, choiceHeight, "choice2");
+final Button button3 = new Button(choiceWidth, choiceHeight, "choice3");
+final Button button4 = new Button(choiceWidth, choiceHeight, "choice4");
+final Button buttonB = new Button(backWidth, backHeight, "back", 10);
 
 // Stack for use in tracking backwards via the back button
 Stack<String> backTrail = new Stack<String>();
