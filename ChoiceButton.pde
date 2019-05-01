@@ -22,8 +22,24 @@ class ChoiceButton extends Button {
   }
 
   void doAction() {
+    // Just to silence some errors that would arise when trying to load dest
+    if (dest.isEmpty()) { return; }
 
-  };
+    // Allow for files from any location
+    String destFullPath = currPath + File.separator + dest;
+    jsonObj = parseJSON(destFullPath);
+
+    if (jsonObj.size() != 0) {
+      // Keep track of our path backwards
+      pushBackTrail(jsonObj, currFile);
+
+      // Only set current file to the file name
+      currFile = dest;
+
+      // Update the view and its data to reflect the new jsonObj
+      updateView();
+    }
+  }
 }
 
 // General properties

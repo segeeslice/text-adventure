@@ -6,25 +6,25 @@ class Button {
   void doAction () {};
 
   // Top-left corner x and y coordinates
-  private int x;
-  private int y;
+  protected int x;
+  protected int y;
 
   // Width and height
-  private int w;
-  private int h;
+  protected int w;
+  protected int h;
 
   // Button identifier
-  private String k;
+  protected String k;
 
   // Text to be displayed and destination when clicked
-  private String textVal;
-  private String dest;
+  protected String textVal;
+  protected String dest;
 
   // Curve for the corner of the button (if any)
-  private int dispCurve;
+  protected int dispCurve;
 
   // Image to be displayed in the button (if any)
-  private PImage img;
+  protected PImage img;
 
   public Button () {
     x = y = w = h = dispCurve = 0;

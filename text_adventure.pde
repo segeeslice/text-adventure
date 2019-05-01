@@ -63,30 +63,37 @@ synchronized void mousePressed () {
     case "res":
       break;
     default:
-      // Just to silence some errors that would arise when trying to load dest
-      if (clicked.getDest().isEmpty()) { return; }
 
-      // Allow for files from any location
-      // Only set current file to the file name
-      String destFile = clicked.getDest();
-      String destFullPath = currPath + File.separator + destFile;
+      // Temporarily allow separate logic for back
+      // Don't modify since temp
+      if (clicked.getK().equals("back")) {
+        // Just to silence some errors that would arise when trying to load dest
+        if (clicked.getDest().isEmpty()) { return; }
 
-      jsonObj = parseJSON(destFullPath);
+        // Allow for files from any location
+        // Only set current file to the file name
+        String destFile = clicked.getDest();
+        String destFullPath = currPath + File.separator + destFile;
 
-      if (jsonObj.size() != 0) {
-        // Keep track of our path backwards
-        if (!clicked.getK().equals("back")) {
-          pushBackTrail(jsonObj, currFile);
+        jsonObj = parseJSON(destFullPath);
 
-        // Update the back button to the next item backwards
-        } else {
-          popBackTrail();
+        if (jsonObj.size() != 0) {
+          // Keep track of our path backwards
+          if (!clicked.getK().equals("back")) {
+            pushBackTrail(jsonObj, currFile);
+
+            // Update the back button to the next item backwards
+          } else {
+            popBackTrail();
+          }
+
+          currFile = destFile;
+
+          // Update the view and its data to reflect the new jsonObj
+          updateView();
         }
-
-        currFile = destFile;
-
-        // Update the view and its data to reflect the new jsonObj
-        updateView();
+      } else {
+        clicked.doAction();
       }
   }
 }
