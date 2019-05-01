@@ -6,7 +6,7 @@ String currPath = ""; // Store just parent directory of current adventure
 
 final String fontFile = "IBM_VGA8.ttf";
 final int fontSize = 16;
-final int padding = 16;
+final static int padding = 16;
 
 void setup () {
   size(800, 600);

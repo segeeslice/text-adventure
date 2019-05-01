@@ -2,6 +2,9 @@ import java.util.Vector;
 
 // Class for storing meta data on buttons and internal functionality
 class Button {
+  // Should be abstract after refactoring
+  void doAction () {};
+
   // Top-left corner x and y coordinates
   private int x;
   private int y;
