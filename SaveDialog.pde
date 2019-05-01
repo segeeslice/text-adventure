@@ -43,28 +43,7 @@ void saveToggle() {
     buttonSave2.setY(saveDialogYCorner + saveH + padding*2);
     buttonSave3.setY(saveDialogYCorner + saveH*2 + padding*3);
 
-    for (int i = 1; i <= 3; i++) {
-      String keyVal = "save" + (char)(i + '0');
-      JSONObject temp = new JSONObject();
-
-      try {
-        temp = loadJSONObject("saves" + File.separator + keyVal + ".json");
-      } catch (Exception e) {
-        // Lack of a file just means it will not be loaded
-        // Hide any exception for this for now
-      }
-
-      String saveText = "Save " + (char)(i + '0') + "\n";
-      if (temp.size() == 0) {
-        saveText += "[empty]";
-      } else if (temp.isNull("saveText")) {
-        saveText += "[untitled]";
-      } else {
-        saveText += temp.getString("saveText");
-      }
-
-      AllButtons.setButtonText(keyVal, saveText);
-    }
+    updateDialogText();
 
   } else {
     AllButtons.remove(buttonSave1);
@@ -100,5 +79,30 @@ void saveDialog () {
     fill(40, 40, 40);
     rectMode(CENTER);
     rect(saveDialogX, saveDialogY, 500, 300);
+  }
+}
+
+void updateDialogText () {
+  for (int i = 1; i <= 3; i++) {
+    String keyVal = "save" + (char)(i + '0');
+    JSONObject temp = new JSONObject();
+
+    try {
+      temp = loadJSONObject("saves" + File.separator + keyVal + ".json");
+    } catch (Exception e) {
+      // Lack of a file just means it will not be loaded
+      // Hide any exception for this for now
+    }
+
+    String saveText = "Save " + (char)(i + '0') + "\n";
+    if (temp.size() == 0) {
+      saveText += "[empty]";
+    } else if (temp.isNull("saveText")) {
+      saveText += "[untitled]";
+    } else {
+      saveText += temp.getString("saveText");
+    }
+
+    AllButtons.setButtonText(keyVal, saveText);
   }
 }
