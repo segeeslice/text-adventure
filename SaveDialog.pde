@@ -1,6 +1,6 @@
 // Handle the saving of progress in adventures
-// Save to path "data/saves/save{num}"
-// User can add a save title; will append via "save{num}_This_Is_My_Title"
+// Save to path "data/saves/save{num}.json"
+// Other info (like save title) will be located within the json file
 // Start with hard-coded 3 saves; eventually bump up to any number
 
 // Specifies whether or not the dialog should be displayed
@@ -43,6 +43,29 @@ void saveToggle() {
     buttonSave2.setY(saveDialogYCorner + saveH + padding*2);
     buttonSave3.setY(saveDialogYCorner + saveH*2 + padding*3);
 
+    for (int i = 1; i <= 3; i++) {
+      String keyVal = "save" + (char)(i + '0');
+      JSONObject temp = new JSONObject();
+
+      try {
+        temp = loadJSONObject("saves" + File.separator + keyVal + ".json");
+      } catch (Exception e) {
+        // Lack of a file just means it will not be loaded
+        // Hide any exception for this for now
+      }
+
+      String saveText = "Save " + (char)(i + '0') + "\n";
+      if (temp.size() == 0) {
+        saveText += "[empty]";
+      } else if (temp.isNull("saveText")) {
+        saveText += "[untitled]";
+      } else {
+        saveText += temp.getString("saveText");
+      }
+
+      AllButtons.setButtonText(keyVal, saveText);
+    }
+
   } else {
     AllButtons.remove(buttonSave1);
     AllButtons.remove(buttonSave2);
@@ -71,7 +94,7 @@ void saveProgress (File file) {
 }
 
 // Display the user's currently saved games for opening
-// Each save box has 100 px of height room
+// Buttons are displayed on top of this automatically
 void saveDialog () {
   if (saveActive) {
     fill(40, 40, 40);

@@ -136,4 +136,12 @@ static class AllButtons {
 
     return "";
   }
+
+  static void setButtonText(String keyVal, String text_in) {
+    for (Button b : buttons) {
+      if (b.getK().equals(keyVal)) {
+        b.setText(text_in);
+      }
+    }
+  }
 };

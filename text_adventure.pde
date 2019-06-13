@@ -38,6 +38,8 @@ void draw () {
   mainTextDisplay();
   saveDialog();
   AllButtons.display();
+  saveDialog();
+  AllButtons.display();
 }
 
 synchronized void mousePressed () {
