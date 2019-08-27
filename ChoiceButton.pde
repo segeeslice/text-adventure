@@ -13,19 +13,46 @@ The back button is located in the middle of them as such:
 
 import java.util.Stack;
 
+class ChoiceButton extends Button {
+  final static public int width = 400 - padding*2;
+  final static public int height = 56;
+
+  ChoiceButton (int num) {
+    super(ChoiceButton.width, ChoiceButton.height, "choice" + (char)(num + '0'));
+  }
+
+  void doAction() {
+    // Just to silence some errors that would arise when trying to load dest
+    if (dest.isEmpty()) { return; }
+
+    // Allow for files from any location
+    String destFullPath = currPath + File.separator + dest;
+    jsonObj = parseJSON(destFullPath);
+
+    if (jsonObj.size() != 0) {
+      // Keep track of our path backwards
+      pushBackTrail(jsonObj, currFile);
+
+      // Only set current file to the file name
+      currFile = dest;
+
+      // Update the view and its data to reflect the new jsonObj
+      updateView();
+    }
+  }
+}
+
 // General properties
-final int choiceHeight = 56;
-final int choiceWidth = 400 - padding*2;
 final int backHeight = 40;
 final int backWidth = 48;
 
 // Must be set in setup()
 PImage backImg;
 
-final Button button1 = new Button(choiceWidth, choiceHeight, "choice1");
-final Button button2 = new Button(choiceWidth, choiceHeight, "choice2");
-final Button button3 = new Button(choiceWidth, choiceHeight, "choice3");
-final Button button4 = new Button(choiceWidth, choiceHeight, "choice4");
+final ChoiceButton button1 = new ChoiceButton(1);
+final ChoiceButton button2 = new ChoiceButton(2);
+final ChoiceButton button3 = new ChoiceButton(3);
+final ChoiceButton button4 = new ChoiceButton(4);
 final Button buttonB = new Button(backWidth, backHeight, "back", 10);
 
 // Stack for use in tracking backwards via the back button
@@ -39,17 +66,17 @@ Stack<String> backTrail = new Stack<String>();
 void initChoiceButtons () {
   // Initialize necessary coordinates
   button3.setX(padding);
-  button3.setY(600 - padding - choiceHeight);
+  button3.setY(600 - padding - ChoiceButton.height);
   button1.setX(button3.getX());
-  button1.setY(button3.getY() - padding - choiceHeight);
+  button1.setY(button3.getY() - padding - ChoiceButton.height);
 
-  button4.setX(button3.getX() + 2*padding + choiceWidth);
+  button4.setX(button3.getX() + 2*padding + ChoiceButton.width);
   button4.setY(button3.getY());
   button2.setX(button4.getX());
   button2.setY(button1.getY());
 
   // Process central point of back button
-  int backCenterX = choiceWidth + 2*padding;
+  int backCenterX = ChoiceButton.width + 2*padding;
   int backCenterY = button3.getY() - (Integer)(padding/2);
 
   // Back button central to corner coordinates conversion
