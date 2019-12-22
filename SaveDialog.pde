@@ -3,45 +3,57 @@
 // Other info (like save title) will be located within the json file
 // Start with hard-coded 3 saves; eventually bump up to any number
 
+// --- GLOBAL VARIABLES ---
+
 // Specifies whether or not the dialog should be displayed
 Boolean saveActive = false;
 
 // Dialog box variables
 final Integer saveDialogW = 500;
 final Integer saveDialogH = 300;
-Integer saveDialogX, saveDialogY, saveDialogXCorner, saveDialogYCorner;
 
-// Button variables
-Integer saveH, saveW;
-Button buttonSave1 = null;
-Button buttonSave2 = null;
-Button buttonSave3 = null;
+// Save button variables
+final Integer saveW = saveDialogW - 100;
+final Integer saveH = (saveDialogH - padding) / 3 - padding;
 
-void initSave () {
-  saveDialogX = getTextMidX();
-  saveDialogY = getTextMidY();
-  saveW = saveDialogW - 100;
-  saveH = (saveDialogH - padding) / 3 - padding;
+// --- CLASS EXTENSION ---
 
-  saveDialogXCorner = saveDialogX - saveDialogW/2;
-  saveDialogYCorner = saveDialogY - saveDialogH/2;
+class SaveButton extends Button {
+
+  SaveButton (int num) {
+    super(saveW, saveH, "save" + (char)(num + '0'));
+  }
+
+  void doAction() {
+
+  }
 }
 
-void saveToggle() {
+// Button variables
+SaveButton buttonSave1 = null;
+SaveButton buttonSave2 = null;
+SaveButton buttonSave3 = null;
+
+// --- UTIL METHODS ---
+
+void toggleSaveDialog () {
   saveActive = !saveActive;
 
+  final int saveDialogX = getTextMidX() - saveDialogW / 2;
+  final int saveDialogY = getTextMidY() - saveDialogH / 2;
+
   if (saveActive) {
-    buttonSave1 = new Button(saveW, saveH, "save1");
-    buttonSave2 = new Button(saveW, saveH, "save2");
-    buttonSave3 = new Button(saveW, saveH, "save3");
+    buttonSave1 = new SaveButton(1);
+    buttonSave2 = new SaveButton(2);
+    buttonSave3 = new SaveButton(3);
 
-    buttonSave1.setX(saveDialogXCorner + padding);
-    buttonSave2.setX(saveDialogXCorner + padding);
-    buttonSave3.setX(saveDialogXCorner + padding);
+    buttonSave1.setX(saveDialogX + padding);
+    buttonSave2.setX(saveDialogX + padding);
+    buttonSave3.setX(saveDialogX + padding);
 
-    buttonSave1.setY(saveDialogYCorner + padding);
-    buttonSave2.setY(saveDialogYCorner + saveH + padding*2);
-    buttonSave3.setY(saveDialogYCorner + saveH*2 + padding*3);
+    buttonSave1.setY(saveDialogY + padding);
+    buttonSave2.setY(saveDialogY + buttonSave1.getH() + padding*2);
+    buttonSave3.setY(saveDialogY + buttonSave2.getH()*2 + padding*3);
 
     updateDialogText();
 
@@ -78,7 +90,7 @@ void saveDialog () {
   if (saveActive) {
     fill(40, 40, 40);
     rectMode(CENTER);
-    rect(saveDialogX, saveDialogY, 500, 300);
+    rect(getTextMidX(), getTextMidY(), saveDialogW, saveDialogH);
   }
 }
 

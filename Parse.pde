@@ -1,7 +1,7 @@
 // Get a JSONObject out of a passed file name
 JSONObject parseJSON (String fileName) {
   JSONObject obj = new JSONObject();
-  
+
   if (fileName != null && !fileName.isEmpty()) {
     try {
       obj = loadJSONObject(fileName);
@@ -9,7 +9,7 @@ JSONObject parseJSON (String fileName) {
       println("Could not load file: ", fileName, "\n Error:", e);
     }
   }
-  
+
   return obj;
 }
 
@@ -28,16 +28,16 @@ String[] getJSONButtonText(JSONObject obj) {
   String ret[] = {"", "", "", ""};
   JSONObject searchObj;
   String keyVal;
-  
+
   for (int i = 1; i <= 4; i++) {
     keyVal = "button" + (char)(i + '0');
-    
+
     if (!obj.isNull(keyVal)) {
       searchObj = obj.getJSONObject(keyVal);
       ret[i-1] = searchObj.getString("text");
     }
   }
-  
+
   return ret;
 }
 
@@ -46,16 +46,16 @@ String[] getJSONButtonDest(JSONObject obj) {
   String ret[] = {"", "", "", ""};
   JSONObject searchObj;
   String keyVal;
-  
+
   for (int i = 1; i <= 4; i++) {
     keyVal = "button" + (char)(i + '0');
-    
+
     if (!obj.isNull(keyVal)) {
       searchObj = obj.getJSONObject(keyVal);
       ret[i-1] = searchObj.getString("dest");
     }
   }
-  
-  
+
+
   return ret;
 }

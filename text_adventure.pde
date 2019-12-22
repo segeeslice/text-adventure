@@ -30,7 +30,6 @@ void setup () {
   initChoiceButtons();
   initColButtons();
   initText();
-  initSave();
 }
 
 void draw () {
@@ -53,10 +52,7 @@ synchronized void mousePressed () {
       selectInput("Select a starter or save file", "openFile");
       break;
     case "save":
-      // TODO: Have a menu appear with various save locations?
-      // Currently just saves the output. May need to add
-      // special "save" file type
-      saveToggle();
+      toggleSaveDialog();
       break;
     case "opt":
       break;
